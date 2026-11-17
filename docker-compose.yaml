@@ -1,0 +1,18 @@
+services:
+  minio:
+    image: quay.io/minio/aistor/minio
+    container_name: minio
+
+    volumes:
+      - ./minio.license:/root/.minio/minio.license
+      - ./data:/mnt/data
+    
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+    command: server /mnt/data --console-address ":9001"
